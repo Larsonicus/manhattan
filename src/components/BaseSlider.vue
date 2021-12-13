@@ -45,8 +45,13 @@ export default defineComponent({
         order: 'sys.createdAt',
         'fields.year[all]': selectedYear
       });
-      enabledMonths.value = enabledMonthsResponse.items[0].fields.months.split(' ');
+      if (!enabledMonthsResponse.items[0].fields.months?.split(' ')) {
+        enabledMonths.value = [''];
+        return;
+      };
+      enabledMonths.value = enabledMonthsResponse.items[0].fields.months?.split(' ');
     };
+
     changeEnabledMonths(selectedYear.value);
 
     let selectedMonth = ref('ФЕВ');
@@ -56,10 +61,10 @@ export default defineComponent({
       context.emit('changeDate', selectedMonth.value + selectedYear.value);
     };
 
-    const changeYear = (payload: Event) => {
+    const changeYear = async (payload: Event) => {
       const target = payload.target as HTMLButtonElement;
       selectedYear.value = target?.value;
-      changeEnabledMonths(selectedYear.value);
+      await changeEnabledMonths(selectedYear.value);
       changeSelectedMonth(enabledMonths.value[0]);
     };
 
@@ -157,7 +162,6 @@ export default defineComponent({
     width: calc(100% - 40px);
   }
 }
-
 
 @media screen and (min-width: 768px) {
   .slide-container {
