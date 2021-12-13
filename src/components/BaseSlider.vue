@@ -33,7 +33,7 @@ export default defineComponent({
   async setup(props, context) {
     const buttons = [{ month: 'ЯНВ' }, { month: 'ФЕВ' }, { month: 'МАР' }, { month: 'АПР' },
     { month: 'МАЙ' }, { month: 'ИЮН' }, { month: 'ИЮЛ' }, { month: 'АВГ' }, { month: 'СЕН' },
-    { month: 'ОКТ' }, { month: 'НОЯ' }, { month: 'ДЕК' }]
+    { month: 'ОКТ' }, { month: 'НОЯ' }, { month: 'ДЕК' }];
 
     let selectedYear = ref('1945');
     const enabledMonths = ref(['']);
@@ -45,7 +45,7 @@ export default defineComponent({
         order: 'sys.createdAt',
         'fields.year[all]': selectedYear
       });
-      enabledMonths.value = enabledMonthsResponse.items[0].fields.months.split(' ')
+      enabledMonths.value = enabledMonthsResponse.items[0].fields.months.split(' ');
     };
     changeEnabledMonths(selectedYear.value);
 
@@ -53,7 +53,7 @@ export default defineComponent({
 
     const changeSelectedMonth = (month: string) => {
       selectedMonth.value = month;
-      context.emit('changeDate', selectedMonth.value + selectedYear.value)
+      context.emit('changeDate', selectedMonth.value + selectedYear.value);
     };
 
     const changeYear = (payload: Event) => {
@@ -72,11 +72,9 @@ export default defineComponent({
       changeSelectedMonth(target?.value);
     };
 
-
     return { buttons, selectedMonth, selectedYear, debounceOnInput, enabledMonths, handleClick };
   }
 })
-
 </script>
 <style scoped>
 .slider__year {
@@ -137,5 +135,50 @@ export default defineComponent({
 .selected {
   background-color: #222;
   color: white;
+}
+
+@media screen and (min-width: 320px) {
+  .slide-container {
+    width: 100%;
+  }
+  .slider__months {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 35px);
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .slide-container {
+    width: 90vw;
+  }
+  .slider__months {
+    width: calc(100% - 40px);
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .slide-container {
+    width: 85vw;
+  }
+  .slider__months {
+    width: calc(100% - 40px);
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(1, 35px);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .slide-container {
+    width: 80vw;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .slide-container {
+    width: 70vw;
+  }
 }
 </style>

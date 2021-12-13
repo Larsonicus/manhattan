@@ -50,4 +50,15 @@ export default defineComponent({
 .post__image {
   border: 2px solid black;
 }
+@media screen and (min-width: 320px) {
+  .post {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .post {
+    max-width: 500px;
+  }
+}
 </style>
