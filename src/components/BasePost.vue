@@ -1,6 +1,6 @@
 <template>
-  <div class="post">
-    <div class="post__content" :class="item.fields.image ? '' : 'no-image'">
+  <div class="post" :class="item.fields.image ? '' : 'post_no-image'">
+    <div class="post__content">
       <div class="post__title">
         <h1 style="margin-bottom: 5px;">{{ item.fields.date.content[0].content[0].value }}</h1>
         <h1>{{ item.fields.title.content[0].content[0].value }}</h1>
@@ -43,8 +43,8 @@ export default defineComponent({
   justify-content: space-between;
 }
 
-.no-image {
-  justify-content: unset;
+.post_no-image {
+  height: fit-content;
 }
 
 .post__text {
