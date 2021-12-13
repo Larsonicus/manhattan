@@ -35,8 +35,22 @@ export default defineComponent({
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
 ::-webkit-scrollbar {
-  width: 0;
+  width: 10px;
 }
+::-webkit-scrollbar-track {
+  background-color: #efefef;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #222;
+  border-radius: 1em;
+  border: 2px solid #efefef;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 #app {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
