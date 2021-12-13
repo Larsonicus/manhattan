@@ -1,12 +1,12 @@
 <template>
   <div class="post">
-    <div class="post__content">
+    <div class="post__content" :class="item.fields.image ? '' : 'no-image'">
       <div class="post__title">
         <h1 style="margin-bottom: 5px;">{{ item.fields.date.content[0].content[0].value }}</h1>
         <h1>{{ item.fields.title.content[0].content[0].value }}</h1>
       </div>
       <p class="post__text">{{ item.fields.text }}</p>
-      <img class="post__image" :src="'https:' + item.fields.image.fields.file.url" />
+      <img v-if="item.fields.image" class="post__image" :src="'https:' + item.fields.image.fields.file.url" />
     </div>
   </div>
 </template>
@@ -42,6 +42,11 @@ export default defineComponent({
   height: calc(100% - 10px);
   justify-content: space-between;
 }
+
+.no-image {
+  justify-content: unset;
+}
+
 .post__text {
   word-wrap: normal;
   margin-bottom: 20px;
