@@ -2,7 +2,7 @@
   <div class="post" :class="item.fields.image ? '' : 'post_no-image'">
     <div class="post__content">
       <div class="post__title">
-        <h1 style="margin-bottom: 5px;">{{ item.fields.date.content[0].content[0].value }}</h1>
+        <h1 style="margin-bottom: 5px; font-size: 1.75em;">{{ item.fields.date.content[0].content[0].value }}</h1>
         <h1>{{ item.fields.title.content[0].content[0].value }}</h1>
       </div>
       <p class="post__text">{{ item.fields.text }}</p>
