@@ -104,7 +104,6 @@ export default defineComponent({
   margin-bottom: 40px;
   position: relative;
 }
-
 .slider {
   width: 100%;
   -webkit-appearance: none;
@@ -112,8 +111,15 @@ export default defineComponent({
   height: 8px;
   border-radius: 1em;
 }
+.slider::-moz-range-thumb {
+  background: #222;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
   background: #222;
   width: 20px;

@@ -34,6 +34,10 @@ export default defineComponent({
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222 #efefef;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }

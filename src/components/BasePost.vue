@@ -44,6 +44,7 @@ export default defineComponent({
 
 .post_no-image {
   height: fit-content;
+  height: -moz-fit-content;
 }
 
 .post__text {
