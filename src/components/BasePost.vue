@@ -26,20 +26,19 @@ export default defineComponent({
   border-radius: 1em;
   background-color: #efefef;
   color: #222;
-  padding: 10px;
+  padding: 20px 20px;
   max-width: 500px;
 }
 
 .post__title {
   text-align: center;
-  margin-top: 10px;
   margin-bottom: 20px;
 }
 .post__content {
   margin: auto;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 10px);
+  height: 100%;
   justify-content: space-between;
 }
 
@@ -50,6 +49,8 @@ export default defineComponent({
 .post__text {
   word-wrap: normal;
   margin-bottom: 20px;
+  text-indent: 25px;
+  text-align: justify;
 }
 
 .post__image {
