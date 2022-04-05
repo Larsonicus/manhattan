@@ -39,7 +39,7 @@ export default defineComponent({
   margin-top: 0;
 }
 
-}
+
 
 .post__title {
   text-align: center;
