@@ -59,6 +59,9 @@ export default defineComponent({
     const changeSelectedMonth = (month: string) => {
       selectedMonth.value = month;
       context.emit('changeDate', selectedMonth.value + selectedYear.value);
+
+      const wrapper = document.getElementsByClassName('post__wrapper')[0];
+      wrapper.className.replace(/column-[0-3]/, '');
     };
 
     const changeYear = async (payload: Event) => {
@@ -69,17 +72,27 @@ export default defineComponent({
     };
 
     const debounceOnInput = computed(() => {
-      return debounce(changeYear, 250)
+      return debounce(changeYear, 250);
     });
 
     const handleClick = (payload: Event) => {
       const target = payload.target as HTMLButtonElement;
-      changeSelectedMonth(target?.value);
+
+      if (target?.value != selectedMonth.value) {
+        changeSelectedMonth(target?.value);
+      }
     };
 
-    return { buttons, selectedMonth, selectedYear, debounceOnInput, enabledMonths, handleClick };
-  }
-})
+    return {
+      buttons,
+      selectedMonth,
+      selectedYear,
+      debounceOnInput,
+      enabledMonths,
+      handleClick,
+    };
+  },
+});
 </script>
 <style scoped>
 .slider__year {

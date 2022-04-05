@@ -28,6 +28,17 @@ export default defineComponent({
   color: #222;
   padding: 20px 20px;
   max-width: 500px;
+
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+
+  margin-top: 20px;
+}
+
+.post:nth-child(1) {
+  margin-top: 0;
+}
+
 }
 
 .post__title {
@@ -42,11 +53,6 @@ export default defineComponent({
   justify-content: space-between;
 }
 
-.post_no-image {
-  height: fit-content;
-  height: -moz-fit-content;
-}
-
 .post__text {
   word-wrap: normal;
   margin-bottom: 20px;
@@ -56,7 +62,12 @@ export default defineComponent({
 
 .post__image {
   border: 2px solid black;
+
+  object-fit: cover;
+
+  width: 100%;
 }
+
 @media screen and (min-width: 320px) {
   .post {
     width: 100%;
