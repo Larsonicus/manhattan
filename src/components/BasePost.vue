@@ -39,12 +39,26 @@ export default defineComponent({
   margin-top: 0;
 }
 
+@-moz-document url-prefix() {
+  .post:nth-child(n + 4) {
+    margin-top: 20px;
+  }
 
+  @media screen and (min-width: 1024px) {
+    .post {
+      margin-top: 220px;
+    }
+    .post:nth-child(n + 3) {
+      margin-top: 20px;
+    }
+  }
+}
 
 .post__title {
   text-align: center;
   margin-bottom: 20px;
 }
+
 .post__content {
   margin: auto;
   display: flex;
