@@ -2,7 +2,7 @@
   <div class="slide-container">
     <h1 class="slider__year">{{ selectedYear }}</h1>
     <input
-      @input="changeYear"
+      @input="debounceOnInput"
       type="range"
       min="1945"
       max="1991"
@@ -26,7 +26,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import debounce from 'lodash.debounce';
+import { computed, defineComponent, ref } from 'vue';
 import client from '../contentful';
 
 export default defineComponent({
@@ -87,6 +88,10 @@ export default defineComponent({
       changeSelectedMonth(enabledMonths.value[0]);
     };
 
+    const debounceOnInput = computed(() => {
+      return debounce(changeYear, 250);
+    });
+
     const handleClick = (payload: Event) => {
       const target = payload.target as HTMLButtonElement;
 
@@ -101,7 +106,7 @@ export default defineComponent({
       selectedYear,
       enabledMonths,
       handleClick,
-      changeYear,
+      debounceOnInput,
     };
   },
 });
@@ -160,17 +165,13 @@ export default defineComponent({
   cursor: pointer;
   transition: all 0.2s;
 }
-.month__button:hover:enabled {
-  background-color: #222;
-  color: white;
-}
 
 .month__button:disabled {
   cursor: auto;
 }
 .selected {
-  background-color: #222 !important;
-  color: white !important;
+  background-color: #222;
+  color: white;
 }
 
 @media screen and (min-width: 320px) {
@@ -214,13 +215,6 @@ export default defineComponent({
 @media screen and (min-width: 1200px) {
   .slide-container {
     width: 70vw;
-  }
-}
-
-@media (hover: none) {
-  .month__button:hover:enabled {
-    background-color: #efefef;
-    color: #222;
   }
 }
 </style>
