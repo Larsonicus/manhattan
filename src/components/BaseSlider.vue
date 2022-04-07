@@ -2,7 +2,7 @@
   <div class="slide-container">
     <h1 class="slider__year">{{ selectedYear }}</h1>
     <input
-      @input="debounceOnInput"
+      @input="changeYear"
       type="range"
       min="1945"
       max="1991"
@@ -19,37 +19,51 @@
         :value="button.month"
         :class="button.month === selectedMonth ? 'selected' : null"
         :disabled="!enabledMonths.includes(button.month)"
-      >{{ button.month }}</button>
+      >
+        {{ button.month }}
+      </button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import debounce from 'lodash.debounce';
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref } from 'vue';
 import client from '../contentful';
 
 export default defineComponent({
   emits: ['changeDate'],
   async setup(props, context) {
-    const buttons = [{ month: 'ЯНВ' }, { month: 'ФЕВ' }, { month: 'МАР' }, { month: 'АПР' },
-    { month: 'МАЙ' }, { month: 'ИЮН' }, { month: 'ИЮЛ' }, { month: 'АВГ' }, { month: 'СЕН' },
-    { month: 'ОКТ' }, { month: 'НОЯ' }, { month: 'ДЕК' }];
+    const buttons = [
+      { month: 'ЯНВ' },
+      { month: 'ФЕВ' },
+      { month: 'МАР' },
+      { month: 'АПР' },
+      { month: 'МАЙ' },
+      { month: 'ИЮН' },
+      { month: 'ИЮЛ' },
+      { month: 'АВГ' },
+      { month: 'СЕН' },
+      { month: 'ОКТ' },
+      { month: 'НОЯ' },
+      { month: 'ДЕК' },
+    ];
 
     let selectedYear = ref('1945');
     const enabledMonths = ref(['']);
 
     const changeEnabledMonths = async (selectedYear: string) => {
-      const enabledMonthsResponse: any = await client.getEntries({ // FIXME: unknown type
+      const enabledMonthsResponse: any = await client.getEntries({
+        // FIXME: unknown type
         content_type: 'year',
         skip: 0,
         order: 'sys.createdAt',
-        'fields.year[all]': selectedYear
+        'fields.year[all]': selectedYear,
       });
       if (!enabledMonthsResponse.items[0].fields.months?.split(' ')) {
         enabledMonths.value = [''];
         return;
-      };
-      enabledMonths.value = enabledMonthsResponse.items[0].fields.months?.split(' ');
+      }
+      enabledMonths.value =
+        enabledMonthsResponse.items[0].fields.months?.split(' ');
     };
 
     changeEnabledMonths(selectedYear.value);
@@ -65,15 +79,13 @@ export default defineComponent({
     };
 
     const changeYear = async (payload: Event) => {
+
       const target = payload.target as HTMLButtonElement;
       selectedYear.value = target?.value;
       await changeEnabledMonths(selectedYear.value);
+
       changeSelectedMonth(enabledMonths.value[0]);
     };
-
-    const debounceOnInput = computed(() => {
-      return debounce(changeYear, 250);
-    });
 
     const handleClick = (payload: Event) => {
       const target = payload.target as HTMLButtonElement;
@@ -87,9 +99,9 @@ export default defineComponent({
       buttons,
       selectedMonth,
       selectedYear,
-      debounceOnInput,
       enabledMonths,
       handleClick,
+      changeYear,
     };
   },
 });
@@ -157,8 +169,8 @@ export default defineComponent({
   cursor: auto;
 }
 .selected {
-  background-color: #222;
-  color: white;
+  background-color: #222 !important;
+  color: white !important;
 }
 
 @media screen and (min-width: 320px) {
@@ -202,6 +214,13 @@ export default defineComponent({
 @media screen and (min-width: 1200px) {
   .slide-container {
     width: 70vw;
+  }
+}
+
+@media (hover: none) {
+  .month__button:hover:enabled {
+    background-color: #efefef;
+    color: #222;
   }
 }
 </style>
